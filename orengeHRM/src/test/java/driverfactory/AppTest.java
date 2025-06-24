@@ -15,6 +15,7 @@ import com.relevantcodes.extentreports.LogStatus;
 import Utilities.exceldataflow;
 import commonFunctions.FunctionalLibrary;
 
+
 public class AppTest {
 
 	String Fileinput="./xldata/orengeHRMTestcases.xlsx";
@@ -35,7 +36,7 @@ public class AppTest {
 		for(int i=1;i<=rc;i++) {
 			if(xl.getCellData(Tsheet, i, 2).equalsIgnoreCase("y")) {
 				String TCmodule=xl.getCellData(Tsheet, i, 1);
-				repo= new ExtentReports("./orengeHRM/target/orgreports.html");
+				repo= new  ExtentReports("/target/extentreports/"+TCmodule+".html");
 				loger=	repo.startTest(TCmodule);
 				loger.assignAuthor("uday");
 
@@ -86,6 +87,28 @@ public class AppTest {
 							loger.log(LogStatus.INFO, Description);
 						}
 						
+						if(Objecttype.equalsIgnoreCase("captureemployeid")) {
+							FunctionalLibrary.captureemployeid(locatertype, locatervalue);
+							loger.log(LogStatus.INFO, Description);
+							
+						}
+						if(Objecttype.equalsIgnoreCase("UploadFile")) {
+							FunctionalLibrary.UploadFile(locatertype, locatervalue, Testdata);
+							loger.log(LogStatus.INFO, Description);
+							
+						}
+						if(Objecttype.equalsIgnoreCase("employtable")) {
+							FunctionalLibrary.employtable(locatertype, locatervalue);
+							loger.log(LogStatus.INFO, Description);
+							
+						}
+						if(Objecttype.equalsIgnoreCase("verifyusernametable")) {
+							Thread.sleep(2000);
+							FunctionalLibrary.verifyusernametable(locatertype, locatervalue, Testdata);
+							loger.log(LogStatus.INFO, Description);
+						}
+						
+						
 						xl.setCelldata(TCmodule, j, 5, "Pass", Fileoutput);
 						loger.log(LogStatus.PASS, Description);
 						moduler_pass="true";
@@ -99,7 +122,7 @@ public class AppTest {
 						moduler_fail="False";
 
 					//	File screen= ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-				//		FileUtils.copyFile(screen, new File("./orengeHRM/screenshots/ORGmodule.png"));
+				//		FileUtils.copyFile(screen, new File("./target/screenshots/ORGmodule.png"));
 					}
 
 					if(moduler_pass.equalsIgnoreCase("true")) {
