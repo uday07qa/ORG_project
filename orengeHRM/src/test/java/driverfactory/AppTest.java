@@ -103,8 +103,17 @@ public class AppTest {
 							
 						}
 						if(Objecttype.equalsIgnoreCase("verifyusernametable")) {
-							Thread.sleep(2000);
+						
 							FunctionalLibrary.verifyusernametable(locatertype, locatervalue, Testdata);
+							loger.log(LogStatus.INFO, Description);
+						}
+						if(Objecttype.equalsIgnoreCase("generateDate")) {
+							Thread.sleep(2000);
+							FunctionalLibrary.generateDate();
+							loger.log(LogStatus.INFO, Description);
+						}
+						if(Objecttype.equalsIgnoreCase("DoubleClick")) {
+							FunctionalLibrary.DoubleClick();
 							loger.log(LogStatus.INFO, Description);
 						}
 						
@@ -119,10 +128,11 @@ public class AppTest {
 						System.out.println(e.getMessage());
 						xl.setCelldata(TCmodule, j, 5, "Fail", Fileoutput);
 						loger.log(LogStatus.FAIL, Description);
-						moduler_fail="False";
-
-					//	File screen= ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-				//		FileUtils.copyFile(screen, new File("./target/screenshots/ORGmodule.png"));
+						loger.log(LogStatus.FAIL, Description);
+						TakesScreenshot ts= (TakesScreenshot)driver;
+					File src	=ts.getScreenshotAs(OutputType.FILE);
+					File trg=new File("./orengeHRM/orange_screenshrot/pic1.png");
+					FileUtils.copyFile(src, trg);
 					}
 
 					if(moduler_pass.equalsIgnoreCase("true")) {

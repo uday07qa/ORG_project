@@ -151,10 +151,13 @@ public class FunctionalLibrary {
 		FileReader fr= new FileReader("./target/notpaddata/employid.txt");
 		BufferedReader br = new BufferedReader(fr);
 		String expected_empid= br.readLine();
-		if(!driver.findElement(By.xpath(compro.getProperty("employid"))).isDisplayed()){
-			Thread.sleep(3000);
+		
+
+			Thread.sleep(1000);
 			driver.findElement(By.xpath(compro.getProperty("employid"))).sendKeys(expected_empid);
+			Thread.sleep(2000);
 			driver.findElement(By.xpath(compro.getProperty("employid_search"))).click();
+			Thread.sleep(2000);
 			String actual_empid=driver.findElement(By.xpath(locatervalue)).getText();
 
 			Reporter.log(actual_empid+"  "+expected_empid,true);
@@ -164,7 +167,7 @@ public class FunctionalLibrary {
 			} catch (AssertionError e) {
 				System.out.println(e.getMessage());
 			}
-		}}
+		}
 
 	public static void UploadFile(String locatertype ,String locatervalue ,String Testdata) throws Throwable {
 		if(locatertype.equalsIgnoreCase("xpath")) {
@@ -181,29 +184,29 @@ public class FunctionalLibrary {
 		}
 	}
 
-	public static void Generatedate() {
-
-		Date date = new Date();
-
-		DateFormat df=  new SimpleDateFormat("YYYY/MM/DD");
-		df.format(date);
-
+	public static String generateDate()
+	{
+		Date date= new Date();
+		DateFormat df= new SimpleDateFormat("YYYY_MM_DD");
+		return df.format(date);
 	}
+	
+	public static void verifyusernametable(String locatertype ,String locatervalue ,String Testdata) throws Throwable {
 
-
-	public static void verifyusernametable(String locatertype ,String locatervalue ,String Testdata) {
-		if(driver.findElement(By.xpath(compro.getProperty("admin_username"))).isDisplayed())
-				{
-	driver.findElement(By.xpath(compro.getProperty("admin_username"))).sendKeys(Testdata);
-			driver.findElement(By.xpath(compro.getProperty("admin_search"))).click();
 			String actual_empid=driver.findElement(By.xpath(locatervalue)).getText();
+			
+			try {
+				Assert.assertEquals(actual_empid, Testdata, "its not displaying ");
+			} catch (AssertionError e) {
+				System.out.println(e.getMessage());
+			}
 			if(actual_empid.contains(Testdata)) {
 				System.out.println("itd displaying in table ");
 			}
 
 		}
 
-	}
+	
 
 public static void DoubleClick() {
 	
